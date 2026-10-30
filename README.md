@@ -4,6 +4,14 @@
 
 **[Скачать Mudra](https://github.com/dzenlotus/mudra/releases/download/v0.1.0-preview.20261023.1/Mudra-macos-arm64.zip)** · [Страница выпуска](https://github.com/dzenlotus/mudra/releases/tag/v0.1.0-preview.20261023.1)
 
+## Cellarium — самообучающиеся клетки
+
+**[Скачать Cellarium для Mac Apple Silicon](https://github.com/dzenlotus/mudra/releases/download/cellarium-v0.1.0-preview.20261030.1/mudra-cellarium-macos-arm64-v0.1.0-preview.20261030.1.zip)** · [Инструкция и проверки](https://github.com/dzenlotus/mudra/releases/tag/cellarium-v0.1.0-preview.20261030.1)
+
+Отдельная Canvas-симуляция: каждая клетка имеет подсеть Mudra, Гханта учит и проверяет её процедуры, Ваджра исполняет их на свежих сенсорах. Есть голод, хищничество, размножение, старение и органы. Мир сохраняется между запусками.
+
+Распакуйте архив и откройте `Cellarium.command`: в `config.env` укажите свой OpenAI-compatible LLM API; embedding API настраивается отдельно и необязателен. Нужны **Rust/Cargo 1.94+ и Apple Command Line Tools** для процедур, создаваемых во время обучения. Зависимости процедур вложены в пакет; Node.js, исходный репозиторий и локальные веса не нужны. После проверки API откроется браузер на паузе — нажмите ▷. Это экспериментальная preview без Apple-нотарификации; вызовы модели расходуют API-токены.
+
 ## Установка и запуск
 
 1. Распакуйте архив и откройте `Install.command`.
