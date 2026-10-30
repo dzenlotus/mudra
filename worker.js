@@ -247,8 +247,8 @@ async function executeJob(job) {
     if(typeof simulation.record_retrieval==='function') simulation.record_retrieval(JSON.stringify({job_id:job.id,
       provider_calls:embeddingMetrics.provider_calls,provider_responses:embeddingMetrics.provider_responses,
       cache_hits:embeddingMetrics.cache_hits,documents:job.documents?.length || 0,...lastSearch}));
-    const messages=job.messages.slice();
-    if (search.hits.length || search.error) messages.push({role:'user',content:JSON.stringify({knowledge_search:search,
+    const messages=job.messages.filter(message=>message.role!=='user' || message.name!=='cellarium_knowledge_search');
+    if (search.hits.length || search.error) messages.push({role:'user',name:'cellarium_knowledge_search',content:JSON.stringify({knowledge_search:search,
       note:'These are semantic candidates from your own subnet and archived knowledge; relevance is not proof of applicability. Keep the original observation and goal unchanged.'})});
     record({kind:'knowledge_search',job:job.id,cell_id:job.cell_id,query:job.query,...search});
     requested=true;modelMetrics.provider_requests++;

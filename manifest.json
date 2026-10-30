@@ -20,8 +20,8 @@
       "sha256": "29e6742c5a254268eab8d0ecde11e78d85e19bb4e0094235f703b3ddedd20647"
     },
     "worker.js": {
-      "bytes": 23659,
-      "sha256": "67b0ddf230b2e597c893e259d905304219f90ab192f90bfa96caa257a32882b5"
+      "bytes": 23771,
+      "sha256": "ab64a29834461cc7746f03254adb64f05513543f4ab54e26526de5b5ff342ce9"
     },
     "bridge.js": {
       "bytes": 2953,
