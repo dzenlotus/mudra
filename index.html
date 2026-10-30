@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#eeeae0">
+  <title>Cellarium — живая лаборатория Mudra</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header class="masthead">
+    <a class="brand" href="./" aria-label="Cellarium, главная"><span class="brand-mark" aria-hidden="true">◌</span><span>cellarium<small>ЖИВАЯ ЛАБОРАТОРИЯ MUDRA</small></span></a>
+    <div class="experiment"><span class="eyebrow">ЭКСПЕРИМЕНТ 001</span><span>Поведение вырастает из опыта.</span></div>
+    <div class="masthead-tools"><div class="connection"><span id="connection-dot" class="status-dot"></span><span id="connection-label" role="status">Подключение…</span></div><div class="save-actions"><button id="export-btn" class="quiet-button" type="button">Сохранить в файл</button><button id="import-btn" class="quiet-button" type="button">Загрузить</button><input id="import-file" type="file" accept=".json,application/json" hidden></div><button id="settings-btn" class="settings-button" type="button">Настройки</button></div>
+  </header>
+  <main>
+    <section class="world-column" aria-label="Живой мир">
+      <div class="world-heading"><div><span class="eyebrow">САМОРАЗВИВАЮЩАЯСЯ ЭКОСИСТЕМА</span><h1>Маленькая жизнь.<br><em>Собственные решения.</em></h1></div><div class="world-clock"><span id="world-time">00:00</span><small id="world-clock-status">время мира</small></div></div>
+      <div class="world-frame" id="world-frame">
+        <canvas id="world" aria-label="Полотно с клетками. Нажмите на клетку, чтобы увидеть её состояние и знания." tabindex="0"></canvas>
+        <div class="canvas-caption"><span class="lens-mark" aria-hidden="true">＋</span> ПРУД / ЖИЗНЬ В РЕАЛЬНОМ ВРЕМЕНИ</div>
+        <div id="loading-message" class="world-message">Ожидаем состояние мира<span>Клетки появятся после подключения к симуляции.</span></div>
+        <div id="interaction-hint" class="canvas-hint">Нажмите на клетку, чтобы познакомиться</div>
+        <div class="scale-mark"><span id="scale-bar"></span><small id="scale-label">100 ед.</small></div>
+        <div id="hover-label" class="hover-label" hidden></div>
+      </div>
+      <div class="world-toolbar">
+        <div class="playback"><button id="pause-btn" class="icon-button" aria-label="Приостановить симуляцию" title="Пауза / продолжить">Ⅱ</button><div class="speed-control" role="group" aria-label="Скорость симуляции"><button data-speed="1" class="active" aria-pressed="true">1×</button><button data-speed="4" aria-pressed="false">4×</button><button data-speed="12" aria-pressed="false">12×</button></div><button id="step-btn" class="quiet-button" title="Один шаг мира">Шаг →</button></div>
+        <div class="world-actions"><button id="spawn-btn" class="quiet-button" aria-pressed="false">＋ Клетка</button><button id="feed-btn" class="quiet-button">＋ Еда</button><button id="drought-btn" class="quiet-button">Засуха</button><button id="predator-btn" class="quiet-button" hidden>＋ Коралловая</button><button id="fullscreen-btn" class="icon-button" aria-label="На весь экран" title="На весь экран (F)">⛶</button></div>
+      </div>
+      <div class="world-view-tools"><label class="food-control" for="food-level"><span>Количество пищи</span><input id="food-level" type="range" min="0" max="100" step="1" value="50"><output id="food-level-value" for="food-level">50%</output></label><div class="camera-controls" role="group" aria-label="Масштаб и перемещение мира"><button id="pan-btn" class="quiet-button" type="button" aria-pressed="false" title="Перетаскивайте полотно, чтобы переместиться по миру">Переместить</button><button id="zoom-out" class="camera-step" type="button" aria-label="Отдалить">−</button><output id="zoom-value" aria-label="Масштаб">100%</output><button id="zoom-in" class="camera-step" type="button" aria-label="Приблизить">+</button><button id="zoom-fit" class="quiet-button" type="button">Весь мир</button></div></div>
+      <div class="world-legend"><span><i class="legend-cell grazer"></i>Клетки</span><span hidden><i class="legend-cell predator"></i>Коралловая линия</span><span><i class="legend-food"></i>Питание</span><span><i class="legend-pill"></i>Эволюция</span><span><i class="legend-light"></i><span id="light-status">Свет</span></span><span><i class="legend-link"></i>Связь</span><span id="mode-note">Способности появляются вместе с органами.</span></div>
+      <div id="evolution-summary" class="evolution-summary" aria-live="polite"></div>
+      <div class="population-strip" aria-label="Показатели экосистемы"><div><span id="population-count">—</span><small>живых клеток</small></div><div><span id="birth-count">—</span><small>рождений</small></div><div><span id="knowledge-count">—</span><small>изученных правил</small></div><div><span id="reuse-count">—</span><small>применений опыта</small></div><div><span id="model-count">—</span><small title="Включая сетевые ошибки и локальные отказы до отправки. Ответы модели показаны в блоке обучения.">попыток к Гханте</small></div></div>
+    </section>
+    <aside class="observation" aria-label="Наблюдение за клеткой">
+      <div class="observation-title"><span class="eyebrow">ПОД МИКРОСКОПОМ</span><span id="selected-id" class="mono">—</span></div>
+      <div id="inspector" class="inspector"><div class="empty-inspector"><div class="empty-cell" aria-hidden="true"><i></i></div><h2>У каждой — своя история</h2><p>Выберите клетку на полотне.<br>Посмотрите, чего она хочет,<br>что делает и чему уже научилась.</p></div></div>
+      <section class="learning-box" aria-label="Обучение"><div class="section-heading"><h2>Гханта / обучение</h2><span id="learning-state" class="small-badge">ожидание</span></div><p id="clock-notice" class="clock-notice" hidden></p><p id="learning-description">Гханта достраивает способы в фоне. Мир продолжает жить, пока клетки учатся.</p><div id="learning-detail"></div><p id="global-archive-note" class="global-archive-note" hidden></p></section>
+    </aside>
+  </main>
+  <section class="ledger" aria-label="Журнал событий"><div class="ledger-heading"><div><span class="eyebrow">ПОЛЕВЫЕ ЗАМЕТКИ</span><h2>Что происходит в мире</h2></div><div class="ledger-filters" role="group" aria-label="Фильтр журнала"><button data-filter="all" class="active" aria-pressed="true">Все</button><button data-filter="learning" aria-pressed="false">Обучение</button><button data-filter="life" aria-pressed="false">Жизнь</button></div></div><div id="event-list" class="event-list"><p class="empty-note">Пока нет событий. Журнал заполняется только действиями симуляции.</p></div></section>
+  <footer><span>Параметры → отношения → действия → опыт</span><span>VAJRA × GHANTA <i>·</i> ЛАБОРАТОРНЫЙ ПРОТОТИП</span></footer>
+  <div id="toast" class="toast" role="status" hidden></div>
+  <dialog id="setup-dialog" class="setup-dialog" aria-labelledby="setup-title">
+    <form id="setup-form">
+      <header class="setup-heading"><div><span class="eyebrow">ПОДКЛЮЧЕНИЕ К ЛАБОРАТОРИИ</span><h2 id="setup-title">Кто будет учить клетки</h2></div><button id="setup-close" type="button" class="icon-button" aria-label="Закрыть настройки">×</button></header>
+      <p class="setup-intro">Укажите API своей модели. Программа найдёт доступные модели, проверит подключение и запустит мир.</p>
+      <fieldset id="setup-fields" class="setup-fields">
+        <legend class="visually-hidden">Модель и эмбеддер</legend>
+        <section class="setup-section" aria-labelledby="setup-model-title">
+          <h3 id="setup-model-title">Гханта / модель</h3>
+          <label for="setup-model-url">Адрес OpenAI-совместимого API<input id="setup-model-url" type="url" required placeholder="https://api.company.example/v1" autocomplete="off" spellcheck="false"><small>Корень API с /v1, без /chat/completions.</small></label>
+          <label for="setup-api-key">API-ключ<input id="setup-api-key" type="password" autocomplete="off" placeholder="Введите, если API требует ключ"><small id="setup-key-note">Ключ останется в памяти вкладки до её закрытия.</small></label>
+          <label for="setup-model">Модель</label><div class="setup-model-row"><input id="setup-model" list="setup-model-list" required placeholder="Выберите из списка или введите ID" autocomplete="off" spellcheck="false"><datalist id="setup-model-list"></datalist><button id="setup-models" type="button" class="setup-secondary">Найти модели</button></div><p id="setup-models-status" class="setup-field-status" role="status"></p>
+        </section>
+        <section class="setup-section setup-embedding-section" aria-labelledby="setup-embedding-title">
+          <label class="setup-switch"><input id="setup-embedding-enabled" type="checkbox"><span id="setup-embedding-title">Подключить эмбеддер<small>Для поиска знаний Гхантой. Можно подключить позже.</small></span></label>
+          <div id="setup-embedding-fields" class="setup-embedding-fields" hidden>
+            <label for="setup-embedding-url">Адрес embedding API<input id="setup-embedding-url" type="url" placeholder="https://api.company.example/v1" autocomplete="off" spellcheck="false"></label>
+            <label class="setup-switch setup-key-switch"><input id="setup-embedding-use-model-key" type="checkbox" checked><span>Использовать API-ключ модели</span></label>
+            <label id="setup-embedding-key-field" for="setup-embedding-api-key" hidden>Ключ эмбеддера<input id="setup-embedding-api-key" type="password" autocomplete="off" placeholder="API-ключ эмбеддера"><small id="setup-embedding-key-note">Ключ не сохраняется в настройках.</small></label>
+            <label for="setup-embedding-model">Embedding-модель</label><div class="setup-model-row"><input id="setup-embedding-model" list="setup-embedding-model-list" placeholder="Выберите из списка или введите ID" autocomplete="off" spellcheck="false"><datalist id="setup-embedding-model-list"></datalist><button id="setup-embedding-models" type="button" class="setup-secondary">Найти модели</button></div><p id="setup-embedding-models-status" class="setup-field-status" role="status"></p>
+          </div>
+        </section>
+        <details class="setup-advanced"><summary>Дополнительные настройки</summary><div class="setup-advanced-grid"><label for="setup-max-calls">Вызовов модели на один урок<input id="setup-max-calls" type="number" min="1" step="1" value="24" required></label><label for="setup-reasoning">Reasoning<select id="setup-reasoning"><option value="off">По умолчанию API</option><option value="none">None</option><option value="minimal">Minimal</option><option value="low">Low</option><option value="medium">Medium</option><option value="high">High</option><option value="xhigh">XHigh</option></select></label><label for="setup-dimensions">Размерность эмбеддингов<input id="setup-dimensions" type="number" min="1" max="65536" step="1" placeholder="По умолчанию модели"></label><label for="setup-model-options" class="setup-options">Параметры модели / JSON<textarea id="setup-model-options" rows="3" spellcheck="false">{}</textarea></label></div></details>
+      </fieldset>
+      <div id="setup-status" class="setup-status" role="status" aria-live="polite" hidden></div>
+      <footer class="setup-footer"><p>Адреса и выбранные модели сохраняются в этом браузере. На время проверки мир приостанавливается. Короткий запрос к API проверит подключение перед запуском.</p><button id="setup-start" class="setup-primary" type="submit">Проверить и запустить</button></footer>
+    </form>
+  </dialog>
+  <script src="./bridge.js"></script>
+  <script src="./app.js"></script>
+  <script src="./setup.js"></script>
+</body>
+</html>

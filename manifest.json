@@ -1,0 +1,43 @@
+{
+  "format": "mudra-cellarium-browser-wasm-v1",
+  "runtime": "browser WebAssembly",
+  "requires_installed_rust_cargo_node": false,
+  "files": {
+    "index.html": {
+      "bytes": 13727,
+      "sha256": "7bdf46570f6959dd18528fdc3f3ab0304383e95409fe8c23eb72355dc1271cf5"
+    },
+    "style.css": {
+      "bytes": 25317,
+      "sha256": "30b931d91912acc24a285b16b9da3f8f5f02416544454e09b26dfc9d190b4319"
+    },
+    "app.js": {
+      "bytes": 46746,
+      "sha256": "6df4b0aff2fa899d85610661b8200ef5189271c61946fb8a9307efe9f1230d10"
+    },
+    "setup.js": {
+      "bytes": 11986,
+      "sha256": "29e6742c5a254268eab8d0ecde11e78d85e19bb4e0094235f703b3ddedd20647"
+    },
+    "worker.js": {
+      "bytes": 23659,
+      "sha256": "67b0ddf230b2e597c893e259d905304219f90ab192f90bfa96caa257a32882b5"
+    },
+    "bridge.js": {
+      "bytes": 2953,
+      "sha256": "47ba7f7c0bc70094cf5362a652e79408e9f3e79582cb7362f1f4d66dde279b11"
+    },
+    "pkg/mudra_cellarium_web.js": {
+      "bytes": 13306,
+      "sha256": "8fc1f79cc4c54f9d831e341904c7b914e4fd2e6dba5a05e6712ccf2904ff00b8"
+    },
+    "pkg/mudra_cellarium_web_bg.wasm": {
+      "bytes": 5208849,
+      "sha256": "bb3833b6796b0a178eb2f3bf99e2892a2509209c8e6aefbe41aa67ee7eed9cd0"
+    },
+    ".nojekyll": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  }
+}
