@@ -32,8 +32,8 @@
       "sha256": "8fc1f79cc4c54f9d831e341904c7b914e4fd2e6dba5a05e6712ccf2904ff00b8"
     },
     "pkg/mudra_cellarium_web_bg.wasm": {
-      "bytes": 5208849,
-      "sha256": "bb3833b6796b0a178eb2f3bf99e2892a2509209c8e6aefbe41aa67ee7eed9cd0"
+      "bytes": 5267287,
+      "sha256": "8a7e8343edb7f28777f70143e0e4a2847ca1cf5a2c313f856f4cc719e7d4ca5f"
     },
     ".nojekyll": {
       "bytes": 0,
